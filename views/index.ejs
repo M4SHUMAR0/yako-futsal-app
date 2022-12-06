@@ -8,7 +8,6 @@
     <title>出欠管理の看板</title>
     <!-- todo:css/jsファイルのパスを指定する -->
     <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/index.js"></script>
 </head>
 <body>
     <h1>矢向フットサル部<br>出欠管理の看板</h1>
@@ -303,5 +302,37 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.addEventListener('load', function(){
+            // サーバーへ接続
+            const socket = io();
+            
+            socket.emit('sendMessage', "testmessage");
+                socket.on('receiveMessage', (message) => {
+                    // messageには受信したメッセージが入る
+                    console.log(message);
+                });
+
+            const btnElems = document.getElementsByClassName("btn");
+            const yesElems = document.getElementsByClassName("yes");
+            const noElems = document.getElementsByClassName("no");
+            Array.prototype.forEach.call(btnElems, function(btnElem,index){
+                btnElem.addEventListener("click",function(){
+                    const yesElem = yesElems[index];
+                    const noElem = noElems[index];
+
+                    yesElem.classList.toggle("unvisible");
+                    noElem.classList.toggle("unvisible");
+
+                    socket.emit('sendMessage', "testmessage");
+                    socket.on('receiveMessage', (message) => {
+                        // messageには受信したメッセージが入る
+                        console.log(message);
+                    });                    
+                })
+            })
+
+        });
+    </script>
 </body>
 </html>

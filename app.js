@@ -4,9 +4,9 @@ const server = require('http').createServer(app);
 const socketIo = require('socket.io');
 const io = socketIo(server);
 const PORT = 3000;
-const mysql = require('mysql');
 
 // todo sql作成
+// const mysql = require('mysql');
 // const connection = mysql.createConnection({
 //     host: 'localhost',
 //     user: 'progate',
