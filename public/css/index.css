@@ -1,0 +1,115 @@
+body{
+    background-image: url(../images/souccerCourt.jpg);
+    height: 1764px;
+}
+
+h1{
+    margin: 2rem;
+    color:#fff;
+    font-size: 20px;
+
+    position: relative;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: red;
+    border-radius: 0 10px 10px 10px;
+    background-color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+}
+
+h1:before {
+    font-size: 20px;
+    position: absolute;
+    top: -24px;
+    left: 0;
+    height: 24px;
+    padding: 0 1em;
+    content: 'check!';
+    color: red;
+    border-radius: 10px 10px 0 0;
+    background: orange;
+}
+
+p{
+    font-size:12px ;
+}
+
+.tripleColumn{
+    columns:3;
+    column-fill:auto;
+    height: 1764px;
+}
+
+.firstColumn,.secondColumn,.thirdColumn{
+    height: 100%;
+}
+
+.secondColumn,.thirdColumn{
+    margin-top: -11px;
+}
+
+.attendance{
+    text-decoration: underline;
+}
+
+.yes{
+    color: red;
+}
+
+.no{
+    color: blue;
+}
+
+.unvisible{
+    display:none
+}
+
+.block{
+    background-color:rgba(255,165,0,0.7) ;
+    display: block;
+    margin-bottom: 30px; 
+    padding-bottom: 10px;
+}
+
+.btn {
+padding: 2px;
+outline: 0;
+font-size: 10px;
+color: rgb(0, 0, 0);
+background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#fdde5c),
+    color-stop(#f8ab5e),
+    color-stop(#f56a62),
+    color-stop(#a176c8),
+    color-stop(#759beb),
+    color-stop(#65beb3),
+    to(#70db96)
+);
+background: linear-gradient(
+    to right,
+    #fdde5c,
+    #f8ab5e,
+    #f56a62,
+    #a176c8,
+    #759beb,
+    #65beb3,
+    #70db96
+);
+border-radius: 30px;
+border: 0;
+box-shadow: none;
+cursor: pointer;
+}
+  
+.btn > span {
+display: block;
+padding: 10px 40px;
+font-size: 10px;
+font-weight: bold;
+color: green;
+background: #ebebeb;
+border-radius: 30px;
+}
