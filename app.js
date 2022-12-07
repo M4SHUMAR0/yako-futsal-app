@@ -17,7 +17,17 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-    res.render('index.ejs');
+  connection.query(
+    'select * from people; ',
+    (error, results) => {
+  
+      if (error){
+        console.log(error);
+      }
+      res.render('index.ejs',{people: results});
+      
+    }
+  );
 });
 
 server.listen(PORT);
@@ -32,32 +42,4 @@ io.on('connection', (socket) => {
   });
 });
 
-console.log(typeof mysql);
-console.log("---------------------------");
-console.log(typeof connection);
-console.log("---------------------------");
 
-connection.query(
-  'select * from people; ',
-  (error, results) => {
-
-    if (error){
-      console.log(error);
-    }
-    console.log("---------------")
-    console.log(results);    
-  }
-);
-
-// connection.query(
-//   'SELECT ',
-//   [req.body.itemName],
-//   (error, results) => {
-//     // 下記のコードを削除してください
-
-//     // ここまで削除してください
-//     // 一覧画面にリダイレクトしてください
-//     res.redirect("/index");       
-    
-//   }
-// );
