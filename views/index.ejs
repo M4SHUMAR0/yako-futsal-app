@@ -22,8 +22,13 @@
                             <p> <%= person.car %> </p>
                         </div>
                         <div class = "attendance">
+                            <% if (person.attendance == 1){ %>
                             <p class ="yes">出席</p>
-                            <p class ="no unvisible">欠席</p>
+                            <p class ="no unvisible">欠席</p>                            
+                            <% } else {%>
+                            <p class ="yes unvisible">出席</p>
+                            <p class ="no ">欠席</p>
+                            <% } %>
                         </div>
                         <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
                     </div>
@@ -41,8 +46,13 @@
                             <p> <%= person.car %> </p>
                         </div>
                         <div class = "attendance">
+                            <% if (person.attendance == 1){ %>
                             <p class ="yes">出席</p>
-                            <p class ="no unvisible">欠席</p>
+                            <p class ="no unvisible">欠席</p>                            
+                            <% } else {%>
+                            <p class ="yes unvisible">出席</p>
+                            <p class ="no ">欠席</p>
+                            <% } %>
                         </div>
                         <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
                     </div>
@@ -60,8 +70,13 @@
                             <p> <%= person.car %> </p>
                         </div>
                         <div class = "attendance">
+                            <% if (person.attendance == 1){ %>
                             <p class ="yes">出席</p>
-                            <p class ="no unvisible">欠席</p>
+                            <p class ="no unvisible">欠席</p>                            
+                            <% } else {%>
+                            <p class ="yes unvisible">出席</p>
+                            <p class ="no ">欠席</p>
+                            <% } %>
                         </div>
                         <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
                     </div>
@@ -78,15 +93,24 @@
             const btnElems = document.getElementsByClassName("btn");
             const yesElems = document.getElementsByClassName("yes");
             const noElems = document.getElementsByClassName("no");
+            let beforteIsAttend;let afterIsAttend;
             Array.prototype.forEach.call(btnElems, function(btnElem,index){
                 btnElem.addEventListener("click",function(){
                     const yesElem = yesElems[index];
                     const noElem = noElems[index];
 
+                    if (!yesElem.classList.contains("unvisible")){
+                        beforteIsAttend = 1;
+                    } else{
+                        beforteIsAttend = 0;
+                    }
+                    afterIsAttend = Math.abs(1-beforteIsAttend);
                     yesElem.classList.toggle("unvisible");
                     noElem.classList.toggle("unvisible");
 
-                    socket.emit('sendMessage', "testmessage");
+                    socket.emit('sendMessage', {attendance:afterIsAttend,id:index+1});
+                    console.log(`afterIsAttend is ${afterIsAttend}`);
+                    console.log(`index is ${index}`);
                     socket.on('receiveMessage', (message) => {
                         console.log(message);
                     });                    

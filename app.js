@@ -16,6 +16,8 @@ const connection = mysql.createConnection({
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
+server.listen(PORT);
+
 app.get('/', (req, res) => {
   connection.query(
     'select * from people; ',
@@ -24,26 +26,39 @@ app.get('/', (req, res) => {
       if (error){
         console.log(error);
       }
-      res.render('index.ejs',{people: results});
-      // console.log("============================");
-      // results.forEach(result => {
-      //   console.log(result);        
-      // });
-      
+      res.render('index.ejs',{people: results});     
     }
   );
 });
 
-server.listen(PORT);
 
-// io.on('connection', (socket) => {
-//   console.log('connected');
 
-//   socket.on('sendMessage', (message) => {
-//   console.log('Message has been sent: ', message);
+io.on('connection', (socket) => {
+  console.log('connected');
 
-//   io.emit('receiveMessage', message);
-//   });
-// });
+  socket.on('sendMessage',message => {
+    let afterIsAttend = message.attendance;let id = message.id;
+    console.log(afterIsAttend);console.log(id);
+    connection.query(
+      'UPDATE people SET attendance = (?) WHERE id = (?);',
+      [afterIsAttend,id],
+      (error, results) => {
+        if (error){console.log(error);
+        }else{
+        console.log(results);
+        io.emit('receiveMessage', "complete updating DB!");
+
+        connection.query(
+          "select * from people;",
+          (error,results) =>{
+            console.log(results);
+          }
+        )
+        }
+      }
+    )
+
+  });
+});
 
 
