@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
         console.log(error);
       }
       res.render('index.ejs',{people: results});
+      // console.log("============================");
+      // results.forEach(result => {
+      //   console.log(result);        
+      // });
       
     }
   );
@@ -32,14 +36,14 @@ app.get('/', (req, res) => {
 
 server.listen(PORT);
 
-io.on('connection', (socket) => {
-  console.log('connected');
+// io.on('connection', (socket) => {
+//   console.log('connected');
 
-  socket.on('sendMessage', (message) => {
-  console.log('Message has been sent: ', message);
+//   socket.on('sendMessage', (message) => {
+//   console.log('Message has been sent: ', message);
 
-  io.emit('receiveMessage', message);
-  });
-});
+//   io.emit('receiveMessage', message);
+//   });
+// });
 
 

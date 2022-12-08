@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- サイズはiphone12Pro(390×844px)を想定 -->
+    <title>出欠管理の看板</title>
+    <!-- todo:css/jsファイルのパスを指定する -->
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <h1>矢向フットサル部<br>出欠管理の看板</h1>
+
+    <div class = "tripleColumn">
+        <div class ="firstColumn">                
+            <div class = "block">
+                <div class = "person">
+                    <p></p>
+                </div>
+                <div class = "car">
+                    <p></p>
+                </div>
+                <div class = "attendance">
+                    <p class ="yes">出席</p>
+                    <p class ="no unvisible">欠席</p>
+                </div>
+                <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
+            </div>
+        </div>
+        <div class ="secondColumn">                
+            <div class = "block">
+                <div class = "person">
+                    <p></p>
+                </div>
+                <div class = "car">
+                    <p></p>
+                </div>
+                <div class = "attendance">
+                    <p class ="yes">出席</p>
+                    <p class ="no unvisible">欠席</p>
+                </div>
+                <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
+            </div>
+        </div>
+        <div class ="thirdColumn">                
+            <div class = "block">
+                <div class = "person">
+                    <p></p>
+                </div>
+                <div class = "car">
+                    <p></p>
+                </div>
+                <div class = "attendance">
+                    <p class ="yes">出席</p>
+                    <p class ="no unvisible">欠席</p>
+                </div>
+                <a href="#"><button class="btn"><span>出席/欠席</span></button></a>
+            </div>
+        </div> 
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.addEventListener('load', function(){
+            const firstColumn = document.getElementsByClassName("firstColumn");
+            const secondColumn = document.getElementsByClassName("secondColumn");
+            const thirdColumn = document.getElementsByClassName("thirdColumn");
+            
+            const people = JSON.parse("<%= JSON.stringify(people) %>");
+            
+            people.forEach(function(person,index){
+                if (index < 7){
+                    const div_block = document.createElement("div");
+                    div_block.classList.add("block");
+                    const div_person = document.createElement("div");
+                    div_person.classList.add("person");
+                    const div_car = document.createElement("div");
+                    div_car.classList.add("car");
+                    const div_attendance = document.createElement("div");
+                    div_attendance.classList.add("attendance");
+
+                    const p_person = document.createElement("p");
+                    const p_car = document.createElement("p");
+                    const p_attendance_yes = document.createElement("p");const p_attendance_no = document.createElement("p");
+
+                    p_person.innerHTML = person.name;
+                    p_car.innerHTML = person.car;
+                    p_attendance_yes.innerHTML = "出席";p_attendance_no.innerHTML = "欠席";
+
+                    p_attendance_no.classList.add("no");p_attendance_no.classList.add("unvisible");
+                    p_attendance_yes.classList.add("yes");
+
+                    div_person.appendChild(p_person);
+                    div_car.appendChild(p_car);
+                    div_attendance.appendChild(p_attendance_yes);div_attendance.appendChild(p_attendance_no);
+
+                    div_block.appendChild(div_person);
+                    div_block.appendChild(div_car);
+                    div_block.appendChild(div_attendance);
+
+                    firstColumn.appendChild(div_block);
+
+                }
+            })
+
+
+            // // サーバーへ接続
+            // const socket = io();
+            
+            // socket.emit('sendMessage', "testmessage");
+            // socket.on('receiveMessage', (message) => {
+            //     // messageには受信したメッセージが入る
+            //     console.log(message);
+            // });
+
+            const btnElems = document.getElementsByClassName("btn");
+            const yesElems = document.getElementsByClassName("yes");
+            const noElems = document.getElementsByClassName("no");
+            Array.prototype.forEach.call(btnElems, function(btnElem,index){
+                btnElem.addEventListener("click",function(){
+                    const yesElem = yesElems[index];
+                    const noElem = noElems[index];
+
+                    yesElem.classList.toggle("unvisible");
+                    noElem.classList.toggle("unvisible");
+
+                    // socket.emit('sendMessage', "testmessage");
+                    // socket.on('receiveMessage', (message) => {
+                    //     // messageには受信したメッセージが入る
+                    //     console.log(message);
+                    // });                    
+                })
+            })
+
+        });
+    </script>
+</body>
+</html>
